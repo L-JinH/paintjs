@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d");
 //마우스 클릭상태가 아닐때는 그려지지 말아야 함. 하지만 이벤트를 사용할 경우 true가 되어야해서 let으로 정의함.
 
 const colors = document.getElementsByClassName("js-color");
+const range = document.getElementById("js-range");
 
 canvas.width = 700;
 canvas.height = 700;
@@ -39,6 +40,11 @@ function hendleColorClick(event) {
     ctx.strokeStyle = color;
 }
 
+function handleRangeChange(event) {
+    const size = event.target.value;
+    ctx.lineWidth = size;
+}
+
 if (canvas) {
     canvas.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mousedown", startPainting); //클릭하면 startPainting(= painting = true;) 실행.
@@ -49,3 +55,7 @@ if (canvas) {
 Array.from(colors).forEach((color) =>
     color.addEventListener("click", hendleColorClick)
 ); //color는 array 안의 각각의 아이템들을 대표하는 것이라 이름은 아무거나 상관없음. potato도 가능.
+
+if (range) {
+    range.addEventListener("input", handleRangeChange);
+}
